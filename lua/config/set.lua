@@ -1,4 +1,6 @@
 local vim = vim
+
+vim.cmd("colorscheme desert")
 vim.opt.guicursor = ""
 
 vim.opt.nu = true
