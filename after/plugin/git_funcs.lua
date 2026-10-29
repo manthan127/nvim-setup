@@ -11,7 +11,8 @@ G.init = function(remoteURL)
     else
         vim.notify('Git initialized and all files staged successfully!', vim.log.levels.INFO)
         if remoteURL then
-            -- add remote
+            --TODO: validate url
+            vim.fn.system('git remote add origin' .. remoteURL)
         end
     end
 end
@@ -35,6 +36,7 @@ end
 
 local push = function()
     -- TODO:- push the code if remote exists
+    vim.cmd("Git push")
 end
 -- cheack if need to stage any changes before commit
 -- if unstaged changes found then
@@ -50,24 +52,11 @@ end
         return
     end
     msg = '"' .. msg .. '"'
-    vim.fn.jobstart({ "git", "commit", "-m", msg }, {
-        stdout_buffered = true,
-        on_stdout = function(_, data)
-            if data then
-                print(table.concat(data, "\n"))
-            end
-        end,
-        on_stderr = function (_, err)
-            if err then
-                print(table.concat(err, "\n"))
-            end
-        end,
-        on_exit = function(_, code)
-            if code == 0 then
-                push()
-            end
-        end,
-    })
+    local success, _ = pcall(vim.cmd, "Git commit -m " .. msg)
+    if not success then
+        return
+    end
+    push()
 end
 
 return G
