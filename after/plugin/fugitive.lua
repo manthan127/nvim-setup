@@ -1,7 +1,7 @@
 local vim = vim
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
 
-local function multipleArgs(nargs, desc)
+local function commandOpts(nargs, desc)
     return {
         nargs = nargs,
         desc = desc
@@ -18,7 +18,7 @@ vim.api.nvim_create_user_command(
             vim.fn.system('git remote add origin' .. remoteURL)
         end
     end,
-    multipleArgs('?', 'git init && git add .')
+    commandOpts('?', 'initialize git and add remote')
 )
 
 vim.api.nvim_create_user_command(
@@ -37,7 +37,7 @@ vim.api.nvim_create_user_command(
             print("Error opening file: " .. err)
         end
     end,
-    multipleArgs('*', 'add file name in .gitignore and remove those files from git traking at same time')
+    commandOpts('*', 'add file name in .gitignore and remove those files from git traking at same time')
 )
 
 vim.keymap.set("n", "<leader>gc", function()

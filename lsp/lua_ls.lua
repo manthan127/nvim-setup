@@ -6,8 +6,11 @@ return {
 		Lua = {
 			runtime = {
 				version = "LuaJIT",
-			},
-			signatureHelp = { enabled = true },
-		},
-	},
+            },
+            signatureHelp = { enabled = true },
+            diagnostics = {
+                globals = { 'vim' }, -- Stop 'undefined global vim' warnings
+            }
+        },
+    },
 }
