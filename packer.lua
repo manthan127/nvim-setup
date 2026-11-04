@@ -2,7 +2,7 @@
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
-
+--  brew insall tree-sitter
 return require('packer').startup(function(use)
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
@@ -17,12 +17,14 @@ return require('packer').startup(function(use)
 		branch = "main",
 		build = ':TSUpdate',
 	}
-
+    use('folke/tokyonight.nvim')
 	use('mbbill/undotree')
 	use('tpope/vim-fugitive')
 	use {
-		"mason-org/mason.nvim",
-		requires = { "mason-org/mason-lspconfig.nvim" },
+       "mason-org/mason.nvim",
+		requires = {
+            "mason-org/mason-lspconfig.nvim"
+        },
 		opts = {}
 	}
 end)

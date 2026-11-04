@@ -5,8 +5,8 @@ mason_lspconfig.setup({
     ensure_installed = {
         "lua_ls",
         "elixirls",
-        "clangd"
+        "clangd",
+        "pyright"
     },
     automatic_installation = true,
 })
-

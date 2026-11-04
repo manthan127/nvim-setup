@@ -1,9 +1,5 @@
 local vim = vim
 
-vim.lsp.enable({
-	'lua_ls'
-})
-
 vim.api.nvim_create_autocmd('LspAttach', {
 	callback = function(ev)
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -19,29 +15,37 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Diagnostics
 vim.diagnostic.config({
-	--virtual_lines = true,
-	-- virtual_text = true,
+	virtual_text = true,
+	virtual_lines = false,
+
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
-	virtual_lines = {
-		-- Only show virtual line diagnostics for the current cursor line
-		current_line = true,
-	},
 	float = {
 		border = "rounded",
 		source = true,
+        wrap = true,
+        max_width = 80
 	},
-	signs = {
-		text = {
-			[vim.diagnostic.severity.ERROR] = "󰅚 ",
-			[vim.diagnostic.severity.WARN] = "󰀪 ",
-			[vim.diagnostic.severity.INFO] = "󰋽 ",
-			[vim.diagnostic.severity.HINT] = "󰌶 ",
-		},
-		numhl = {
-			[vim.diagnostic.severity.ERROR] = "ErrorMsg",
-			[vim.diagnostic.severity.WARN] = "WarningMsg",
-		},
-	},
+    jump = {
+      on_jump = function(_, bufnr)
+        vim.diagnostic.open_float {
+          bufnr = bufnr,
+          scope = 'cursor',
+          focus = false,
+        }
+      end,
+    },
+	-- signs = {
+	-- 	text = {
+	-- 		[vim.diagnostic.severity.ERROR] = "󰅚 ",
+	-- 		[vim.diagnostic.severity.WARN] = "󰀪 ",
+	-- 		[vim.diagnostic.severity.INFO] = "󰋽 ",
+	-- 		[vim.diagnostic.severity.HINT] = "󰌶 ",
+	-- 	},
+	-- 	numhl = {
+	-- 		[vim.diagnostic.severity.ERROR] = "ErrorMsg",
+	-- 		[vim.diagnostic.severity.WARN] = "WarningMsg",
+	-- 	},
+	-- },
 })
