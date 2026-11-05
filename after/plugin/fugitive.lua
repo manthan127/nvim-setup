@@ -1,4 +1,3 @@
-local vim = vim
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
 
 local function commandOpts(nargs, desc)
@@ -14,7 +13,6 @@ vim.api.nvim_create_user_command(
         if not success then return end
 
         if remoteURL then
-            --TODO: validate url
             vim.fn.system('git remote add origin' .. remoteURL)
         end
     end,
@@ -23,19 +21,19 @@ vim.api.nvim_create_user_command(
 
 vim.api.nvim_create_user_command(
     'GitIgnore', function(opts)
-        -- need to decide where .gitignore will be created
         local file, err = io.open(".gitignore", "a")
-        if file then
-            if opts.args ~= "" then
-                vim.cmd('Git rm --cached ' .. opts.args)
-                local content = table.concat(opts.fargs, "\n")
-
-                file:write(content)
-            end
-            file:close()
-        else
+        if not file then
             print("Error opening file: " .. err)
+            return
         end
+
+        if opts.args ~= "" then
+            vim.cmd('Git rm --cached ' .. opts.args)
+            local content = table.concat(opts.fargs, "\n")
+
+            file:write(content)
+        end
+        file:close()
     end,
     commandOpts('*', 'add file name in .gitignore and remove those files from git traking at same time')
 )

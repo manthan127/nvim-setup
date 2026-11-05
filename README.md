@@ -5,5 +5,6 @@ TODO: add LSPs / find way to install LSP depanding on files inside `lsp/` direct
 TODO: need to add/edit/update -> shortcuts, remaps, theme, settings etc. works normally for now with minimal config
 
 TODO: add git work flow // commit, push, pull, view diff, solve merge conflict, git setup
-### Remaps Inspo
+### Config inspo
 [repo 1](https://github.com/ThePrimeagen/init.lua)
+[repo 2](https://github.com/nvim-lua/kickstart.nvim)

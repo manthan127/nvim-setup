@@ -1,5 +1,3 @@
-local vim = vim
-
 vim.opt.guicursor = ""
 
 vim.opt.nu = true

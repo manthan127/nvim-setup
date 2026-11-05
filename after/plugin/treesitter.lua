@@ -1,6 +1,5 @@
 local langs = { "c", "elixir", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" }
 local ts = require('nvim-treesitter')
-local vim = vim
 ts.setup({
     -- Optional: directory to install parsers (defaults to data/site)
     install_dir = vim.fn.stdpath('data') .. '/site',
