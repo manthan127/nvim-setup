@@ -7,13 +7,18 @@ local function commandOpts(nargs, desc)
     }
 end
 
+local function is_valid_url(str)
+
+    return true
+ end
+
 vim.api.nvim_create_user_command(
     'GitInit', function(opts)
         local success, _ = pcall(vim.cmd, 'Git init | Git add .')
         if not success then return end
 
         local remoteURL = opts.args
-        if remoteURL ~= "" then
+        if remoteURL ~= "" and is_valid_url(remoteURL) then
             vim.fn.system('git remote add origin' .. remoteURL)
         end
         vim.cmd.Ex()
