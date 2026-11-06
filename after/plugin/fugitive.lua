@@ -8,13 +8,15 @@ local function commandOpts(nargs, desc)
 end
 
 vim.api.nvim_create_user_command(
-    'GitInit', function(remoteURL)
+    'GitInit', function(opts)
         local success, _ = pcall(vim.cmd, 'Git init | Git add .')
         if not success then return end
 
-        if remoteURL then
+        local remoteURL = opts.args
+        if remoteURL ~= "" then
             vim.fn.system('git remote add origin' .. remoteURL)
         end
+        vim.cmd.Ex()
     end,
     commandOpts('?', 'initialize git and add remote')
 )
@@ -26,14 +28,16 @@ vim.api.nvim_create_user_command(
             print("Error opening file: " .. err)
             return
         end
-
         if opts.args ~= "" then
             vim.cmd('Git rm --cached ' .. opts.args)
             local content = table.concat(opts.fargs, "\n")
 
             file:write(content)
         end
+
         file:close()
+        vim.cmd('Git add .gitignore')
+        vim.cmd.Ex()
     end,
     commandOpts('*', 'add file name in .gitignore and remove those files from git traking at same time')
 )
