@@ -1,4 +1,4 @@
-need to use `:so` and `:PackerSync` first time on new device
+need to use `:so`, `:PackerSync`, and `:!brew bundle` first time on new device
 
 TODO: add LSPs / find way to install LSP depanding on files inside `lsp/` directory without writing actual name of lsp in string inside `lsp.lua and mason.lua`
 
